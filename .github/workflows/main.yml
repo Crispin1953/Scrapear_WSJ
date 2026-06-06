@@ -1,4 +1,4 @@
-name: Scraper
+name: Scraper Diario
 
 on:
   workflow_dispatch:
@@ -7,17 +7,21 @@ jobs:
   run-scraper:
     runs-on: ubuntu-latest
     steps:
-      - name: Descargar codigo
+      - name: 1. Copiar codigo de GitHub
         uses: actions/checkout@v4
 
-      - name: Instalar Python
+      - name: 2. Configurar Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: Instalar librerias
+      - name: 3. LISTAR ARCHIVOS (Diagnostico)
         run: |
-          pip install requests gspread oauth2client
+          echo "=== Los archivos reales en el servidor son: ==="
+          ls -R
 
-      - name: Ejecutar script
+      - name: 4. Instalar librerias
+        run: pip install requests gspread oauth2client
+
+      - name: 5. Ejecutar el script
         run: python wsj_to_sheets.py
